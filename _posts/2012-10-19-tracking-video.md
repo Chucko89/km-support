@@ -9,9 +9,15 @@ Below are examples of using the [YouTube](#youtube), [Vimeo](#vimeo), and [Wisti
 
 # Events Recorded
 
-* Played Video - {Name of the Video}
-* Paused Video - {Name of the Video}
-* Finished Video - {Name of the Video}
+* Played Video
+* Paused Video
+* Finished Video
+
+# Properties Recorded
+
+* Played Video Name
+* Paused Video Name
+* Finished Video Name
 
 <a name="vimeo" ></a>
 ## Vimeo
@@ -45,11 +51,11 @@ var videoName = "Sample Video";
 // Add listeners after the player is ready.
 player.addEvent('ready', function() {
   player.addEvent('play', function(){
-    _kmq.push(['record', 'Played Video - ' + videoName]); });
+    _kmq.push(['record', 'Played Video', {'Played Video Name':videoName}]);
   player.addEvent('pause', function(){
-    _kmq.push(['record', 'Paused Video - ' + videoName]); });
+    _kmq.push(['record', 'Paused Video', {'Paused Video Name':videoName}]);
   player.addEvent('finish', function(){
-    _kmq.push(['record', 'Finished Video - ' + videoName]); });
+    _kmq.push(['record', 'Finished Video', {'Finished Video Name':videoName}]);
 });
 </script>
 {% endhighlight %}
@@ -70,13 +76,13 @@ Now below this, let's add our tracking calls.
 function loadKMTrackableVideo (wistia_object, videoName) {
   // Add tracking to 'play', 'pause', and 'end' events.
   wistia_object.bind("play", function() {
-    _kmq.push(['record', 'Played video - ' + videoName]);
+    _kmq.push(['record', 'Played Video', {'Played Video Name':videoName}]);
   });
   wistia_object.bind("pause", function() {
-    _kmq.push(['record', 'Paused video - ' + videoName]);
+    _kmq.push(['record', 'Paused Video', {'Paused Video Name':videoName}]);
   });
   wistia_object.bind("end", function() {
-    _kmq.push(['record', 'Finished video - ' + videoName]);
+    _kmq.push(['record', 'Finished Video', {'Finished Video Name':videoName}]);
   });
 }
 
@@ -117,13 +123,13 @@ var videoName = "Sample Video";
 function onytplayerStateChange(newState) {
   switch(newState) {
     case 1: // YT.PlayerState.PLAYING
-      _kmq.push(['record', 'Played Video - ' + videoName]);
+      _kmq.push(['record', 'Played Video', {'Played Video Name':videoName}]);
       break;
     case 2: // YT.PlayerState.PAUSED
-      _kmq.push(['record', 'Paused Video - ' + videoName]);
+      _kmq.push(['record', 'Paused Video', {'Paused Video Name':videoName}]);
       break;
     case 0: // YT.PlayerState.ENDED
-      _kmq.push(['record', 'Finished Video - ' + videoName]);
+      _kmq.push(['record', 'Finished Video', {'Finished Video Name':videoName}]);
       break;
     default:
       return;
